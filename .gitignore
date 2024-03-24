@@ -1,0 +1,23 @@
+# IDE/Editor files
+.idea/
+.vscode/
+*.iml
+
+# Build output directories
+target/
+build/
+
+# Dependency management files
+/mvnw
+/mvnw.cmd
+/.mvn/
+/.gradle/
+
+# Operating system and temporary files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Log files
+*.log
+
