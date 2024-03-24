@@ -36,13 +36,13 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push sujanabandari19/usermanagement-service:latest
 
-      - name: SSH into EC2 instance
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_PUBLIC_IP }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ~/.ssh/id_rsa
-          port: 22
-          script: |
-            docker pull sujanabandari19/usermanagement-service:latest
-            docker run -d -p 8080:8080 sujanabandari19/usermanagement-service:latest
+  deploy:
+    needs: build
+    runs-on: [aws-ec2]
+    steps:
+      - name: Pull Image from docker hub
+        run: docker pull sujanabandari19/usermanagement-service:latest
+      - name: Delete old container
+        run: docker rm -f usermanagement-container
+      - name: Run docker container
+        run: docker run -d -p 8080:8080 --name usermanagement-container sujanabandari19/usermanagement-service:latest
