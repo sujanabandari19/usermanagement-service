@@ -2,8 +2,8 @@ spring:
   application:
     name: usermanagement-service
   datasource:
-    url: ${{ secrets.MYSQL_URL }}
-    password: ${{ secrets.MYSQL_PASSWORD }}
+    url: ${MYSQL_URL}
+    password: ${MYSQL_PASSWORD}
     username: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
