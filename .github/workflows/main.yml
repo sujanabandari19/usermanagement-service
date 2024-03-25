@@ -45,4 +45,7 @@ jobs:
       - name: Delete old container
         run: docker rm -f usermanagement-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name usermanagement-container sujanabandari19/usermanagement-service:latest
+        run: docker run \
+              -e MYSQL_URL=${{ secrets.MYSQL_URL }} \
+              -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} \
+              -d -p 8080:8080 --name usermanagement-container sujanabandari19/usermanagement-service:latest
