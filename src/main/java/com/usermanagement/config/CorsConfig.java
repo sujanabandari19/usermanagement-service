@@ -11,6 +11,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**") // Specify the URL path you want to enable CORS for
             .allowedOrigins("http://localhost:3000") // Specify the origin you want to allow
+            .allowedOrigins("http://usermanagement-web.s3-website.us-east-2.amazonaws.com")
             .allowedMethods("GET", "POST", "PUT", "DELETE") // Specify the HTTP methods you want to allow
             .allowedHeaders("*"); // Specify the headers you want to allow
     }
