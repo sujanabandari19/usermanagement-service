@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/users")
-@Tag(description = "Crud operations on Users", name = "UserManagement APIs")
+@Tag(description = "APIs Required for User Management", name = "UserManagement APIs")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @Operation(method = "getUserById", description = "Return the requested user")
+    @Operation(method = "getUserById", description = "Returns the requested user")
     public ResponseEntity<UserDTO> getUserById(@PathVariable(value = "id") Long userId) {
     	UserDTO userDto = userService.getUserById(userId);
         return ResponseEntity.ok().body(userDto);
