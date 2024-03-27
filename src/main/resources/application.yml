@@ -16,3 +16,9 @@ spring:
 aws:
   sqs:
     queue-url: https://sqs.us-east-2.amazonaws.com/654654190649/userupdate-queue
+    
+logging:
+    file:
+      name: /var/log/user-service.log
+    level:
+      root: INFO

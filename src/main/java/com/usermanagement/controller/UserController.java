@@ -23,10 +23,12 @@ import com.usermanagement.sqs.SQSPublisher;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/users")
 @Tag(description = "APIs Required for User Management", name = "UserManagement APIs")
+@Slf4j
 public class UserController {
     @Autowired
     private UserService userService;
@@ -58,6 +60,7 @@ public class UserController {
     @Operation(method = "updateUser", description = "Update the user")
     public ResponseEntity<UserDTO> updateUser(@PathVariable(value = "id") Long userId,
                                            @Valid @RequestBody UserDTO userDetails) {
+    	log.info("Publishing a message into SQS");
     	sqsPublisher.publishMessage("update user request for user "+userDetails.getFirstName()+" "+userDetails.getLastName());
     	UserDTO updatedUser = userService.updateUser(userId, userDetails);
         return ResponseEntity.ok().body(updatedUser);

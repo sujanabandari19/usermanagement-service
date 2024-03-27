@@ -9,7 +9,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ControllerAdvice
+@Slf4j
 public class UserExceptionHandler {
 
     @ExceptionHandler(RecordNotFoundException.class)
@@ -23,11 +26,13 @@ public class UserExceptionHandler {
             ConstraintViolationException.class
     })
     public ResponseEntity<String> handleBadRequest(Exception ex) {
+        log.error("handleBadRequest :: An error occurred while processing the request", ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleInternalServerError(Exception ex) {
+        log.error("handleInternalServerError :: An error occurred while processing the request", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
     }
 
