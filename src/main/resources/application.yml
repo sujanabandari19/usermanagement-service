@@ -11,3 +11,8 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL8Dialect 
     show-sql: true
+
+    
+aws:
+  sqs:
+    queue-url: https://sqs.us-east-2.amazonaws.com/654654190649/userupdate-queue

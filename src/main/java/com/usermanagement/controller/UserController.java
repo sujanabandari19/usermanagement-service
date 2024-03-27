@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.usermanagement.dto.UserDTO;
 import com.usermanagement.service.UserService;
+import com.usermanagement.sqs.SQSPublisher;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,6 +30,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class UserController {
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    SQSPublisher sqsPublisher;
 
     @GetMapping
     @Operation(method = "getAllUsers", description = "Returns all the available users")
@@ -54,6 +58,7 @@ public class UserController {
     @Operation(method = "updateUser", description = "Update the user")
     public ResponseEntity<UserDTO> updateUser(@PathVariable(value = "id") Long userId,
                                            @Valid @RequestBody UserDTO userDetails) {
+    	sqsPublisher.publishMessage("update user request for user "+userDetails.getFirstName()+" "+userDetails.getLastName());
     	UserDTO updatedUser = userService.updateUser(userId, userDetails);
         return ResponseEntity.ok().body(updatedUser);
     }
@@ -61,7 +66,8 @@ public class UserController {
     @DeleteMapping("/{id}")
     @Operation(method = "deleteUser", description = "Delete the user")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
-        return userService.deleteUser(userId);
+        userService.deleteUser(userId);
+        return ResponseEntity.ok().build();
     }
     
     @GetMapping("/search")

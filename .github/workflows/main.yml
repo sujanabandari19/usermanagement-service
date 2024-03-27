@@ -45,4 +45,4 @@ jobs:
       - name: Delete old container
         run: docker rm -f usermanagement-container
       - name: Run docker container
-        run: docker run -e MYSQL_URL=${{ secrets.MYSQL_URL }} -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} -d -p 8080:8080 --name usermanagement-container sujanabandari19/usermanagement-service:latest
+        run: docker run -e AWS_SECRET_ACCESS_KEY={{ secrets.SQS_SECRET_ACCESS_KEY }} -e AWS_ACCESS_KEY_ID={{ secrets.SQS_ACCESS_KEY_ID }} -e MYSQL_URL=${{ secrets.MYSQL_URL }} -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }} -d -p 8080:8080 --name usermanagement-container sujanabandari19/usermanagement-service:latest
