@@ -18,7 +18,7 @@ public interface UserService {
 
     public UserDTO updateUser(Long userId, UserDTO userDto);
 
-    public ResponseEntity<?> deleteUser(Long userId);
+    public void deleteUser(Long userId);
 
 	List<UserDTO> searchUsers(String searchTerm);
     
