@@ -26,5 +26,5 @@ public class Address {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // Getters and setters
+    // Getters and setters methods included
 }
